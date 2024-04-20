@@ -20,9 +20,10 @@ const RootLayout = () => {
   useEffect(() => {
     if (error) throw error;
     if (fontsLoaded) SplashScreen.hideAsync();
-    if (!fontsLoaded && !error) return null;
   }, [fontsLoaded, error]);
-
+  
+  if (!fontsLoaded && !error) return null;
+  
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
