@@ -11,27 +11,29 @@ import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
-import { createUser } from "../../lib/appwrite";
+import { createUser } from "../../lib/appwrite.js";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignUp = () => {
   const [form, setForm] = useState({
-    userName: "",
     email: "",
     password: "",
+    userName: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
  const {setUser, setIsLoggedIn} = useGlobalContext();
+
   const submit = async () => {
     if (!form.userName || !form.email || !form.password) {
       Alert.alert("Error", "please fill in all the fields");
+      return;
     }
-
     setIsSubmitting(true);
 
     try {
-      const result = await createUser(form.email, form.password, form.userName);
+      const result = await createUser(form);
+      console.log("user " + result)
       setUser(result);
       setIsLoggedIn(true);
 

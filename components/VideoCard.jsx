@@ -7,11 +7,12 @@ const VideoCard = ({
     title,
     thumbnail,
     video,
-    users: { userName, avatar },
+    users:{userName, avatar}
   },
 }) => {
+// console.log("users",users)
   const [play, setPlay] = useState(false);
-  console.log(thumbnail);
+  
   return (
     <View className="flex-col items-center px-4 mb-14">
       <View className="flex-row gap-3 items-start">
