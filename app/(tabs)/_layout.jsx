@@ -1,5 +1,5 @@
 import { View, Text, Image } from "react-native";
-import { Tabs, Redirect } from "expo-router";
+import { Tabs, Redirect, usePathname } from "expo-router";
 import { icons } from "../../constants";
 
 const TabIcon = ({ icon, color, name, focused }) => {
@@ -71,6 +71,7 @@ const TabsLayout = () => {
         options={{
           title: "create",
           headerShown: false,
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ color, focused }) => (
             <TabIcon
               icon={icons.plus}
