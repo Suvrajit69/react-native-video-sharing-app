@@ -13,6 +13,7 @@ const GlobalProvider = ({ children }) => {
     getCurrentUser()
       .then((res) => {
         if (res) {
+          console.log("res: ",res)
           setIsLoggedIn(true);
           setUser(res);
         } else {
@@ -24,7 +25,7 @@ const GlobalProvider = ({ children }) => {
         console.log(error);
       })
       .finally(() => {
-        setIsLoggedIn(false);
+        setIsLoading(false);
       });
   }, []);
 
@@ -36,6 +37,7 @@ const GlobalProvider = ({ children }) => {
         setUser,
         setIsLoading,
         setIsLoggedIn,
+        loading
       }}
     >
       {children}

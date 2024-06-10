@@ -22,6 +22,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Create = () => {
   const { user } = useGlobalContext();
+  console.log("user: ",user)
   if (!user.$id) {
     router.push("/sign-in");
     setTimeout(() => {
@@ -29,7 +30,7 @@ const Create = () => {
     }, 2000);
   }
 
-  console.log("user: ", user.$id);
+  
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
     title: "",
