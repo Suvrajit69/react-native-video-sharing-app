@@ -1,12 +1,53 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, FlatList } from "react-native";
+import React, { useEffect } from "react";
+import SearchInput from "../../components/SearchInput";
+import EmptyState from "../../components/EmptyState";
+import { StatusBar } from "expo-status-bar";
+import { searchedPosts } from "../../lib/appwrite";
+import useAppwrite from "../../lib/useAppwrite";
+import VideoCard from "../../components/VideoCard";
+import { useLocalSearchParams } from "expo-router";
 
 const Search = () => {
-  return (
-    <View>
-      <Text>Search</Text>
-    </View>
-  )
-}
+  const { query } = useLocalSearchParams();
+  const { data: posts, refetch } = useAppwrite(() => searchedPosts(query));
 
-export default Search
+  // console.log("posts",posts)
+  useEffect(() => {
+    refetch();
+  }, [query]);
+
+  return (
+    <SafeAreaView className="bg-primary flex-1">
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <VideoCard video={item} />}
+        ListHeaderComponent={() => (
+          <View className="my-6 px-4 mt-12">
+            <View>
+              <Text className="font-pmedium text-sm text-gray-100">
+                Search results
+              </Text>
+              <Text className="text-2xl font-psemibold text-white">
+                {query}
+              </Text>
+              <View className="mt-6 mb-8">
+                <SearchInput initialQuery={query} />
+              </View>
+            </View>
+          </View>
+        )}
+        ListEmptyComponent={() => (
+          <EmptyState
+            title="No Videos Found"
+            subTitle="No videos found for this search query"
+          />
+        )}
+      />
+      <StatusBar backgroundColor="#161622" style="light" />
+    </SafeAreaView>
+  );
+};
+
+export default Search;
