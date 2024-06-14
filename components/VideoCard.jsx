@@ -14,10 +14,10 @@ const VideoCard = ({
   const [play, setPlay] = useState(false);
   
   return (
-    <View className="flex-col items-center px-4 mb-14">
-      <View className="flex-row gap-3 items-start">
-        <View className="justify-center items-center flex-row flex-1">
-          <View className="w-[46px] h-[46px] rounded-lg border-secondary justify-center items-center p-0.5">
+    <View className="flex-col items-center px-4 mb-14 bg-card rounded-xl pt-3">
+      <View className="flex-row gap-3 items-start bg-card">
+        <View className="justify-center items-center flex-row flex-1 ">
+          <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center items-center p-0.5">
             <Image
               source={{ uri: avatar }}
               resizeMode="cover"
@@ -49,11 +49,11 @@ const VideoCard = ({
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => setPlay(true)}
-          className="w-full h-60 rounded-xl mt-3 relative justify-center items-center"
+          className="w-full h-60 p-1 mt-3 relative justify-center items-center"
         >
           <Image
             source={{ uri: thumbnail }}
-            className="w-full h-full mt-3"
+            className="w-full h-full mt-3 rounded-lg"
             resizeMode="cover"
           />
           <Image
@@ -63,6 +63,7 @@ const VideoCard = ({
           />
         </TouchableOpacity>
       )}
+      <Text>fdfdfdf</Text>
     </View>
   );
 };

@@ -23,7 +23,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 const Create = () => {
   const { user } = useGlobalContext();
   console.log("user: ",user)
-  if (!user.$id) {
+  if (!user?.$id) {
     router.push("/sign-in");
     setTimeout(() => {
       Alert.alert("user not found. Please log in!");
