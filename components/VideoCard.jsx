@@ -1,21 +1,28 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { icons } from "../constants";
+import { useGlobalContext } from "../context/GlobalProvider";
+import VideoPlayer from "./VideoPlayer";
 
 const VideoCard = ({
   video: {
     title,
     thumbnail,
     video,
-    users:{userName, avatar}
+    users: { userName, avatar, $id },
   },
 }) => {
-// console.log("users",users)
+  const { user } = useGlobalContext();
+  console.log("users", video);
   const [play, setPlay] = useState(false);
-  
+
+  const videoFinished =()=>{
+    setPlay(false)
+  }
+
   return (
-    <View className="flex-col items-center px-4 mb-14 bg-card rounded-xl pt-3">
-      <View className="flex-row gap-3 items-start bg-card">
+    <View className="flex-col items-center px-4 mb-14 bg-gray-900 rounded-xl pt-3 scale-95">
+      <View className="flex-row items-start bg-gray-900">
         <View className="justify-center items-center flex-row flex-1 ">
           <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center items-center p-0.5">
             <Image
@@ -39,17 +46,29 @@ const VideoCard = ({
             </Text>
           </View>
         </View>
-        <View className="pt-2">
-          <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
-        </View>
+        {user.$id === $id ? (
+          <View className="pt-2">
+            <Image
+              source={icons.menu}
+              className="w-5 h-5"
+              resizeMode="contain"
+            />
+          </View>
+        ) : (
+          <></>
+        )}
       </View>
       {play ? (
-        <Text className="text-white">Playing</Text>
+        <VideoPlayer
+          styles="w-full h-60  mt-3 relative justify-center items-center rounded-lg"
+          uri={video}
+          videoFinished={videoFinished}
+        />
       ) : (
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => setPlay(true)}
-          className="w-full h-60 p-1 mt-3 relative justify-center items-center"
+          className="w-full h-60  mt-3 relative justify-center items-center"
         >
           <Image
             source={{ uri: thumbnail }}
@@ -63,7 +82,7 @@ const VideoCard = ({
           />
         </TouchableOpacity>
       )}
-      <Text>fdfdfdf</Text>
+      <Text className="mt-4">fdfdfdf</Text>
     </View>
   );
 };

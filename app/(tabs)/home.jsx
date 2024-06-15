@@ -24,7 +24,7 @@ const Home = () => {
 
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
-  // console.log("posts",posts)
+  console.log("posts",posts)
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
@@ -35,9 +35,8 @@ const Home = () => {
     <SafeAreaView className="bg-primary flex-1">
       <FlatList
         data={posts}
-        // data={[]}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <VideoCard video={item} />}
+        keyExtractor={(item) => item.$id}
+        renderItem={({ item }) => <VideoCard video={item}/>}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6 mt-12">
             <View className="justify-between items-start flex-row mb-6">
@@ -60,7 +59,7 @@ const Home = () => {
             <SearchInput />
 
             <View className="w-full flex-1 pt-5 pb-8">
-              <Text className="text-gray-100 text-lg font-pregular mb-3">
+              <Text className="text-gray-100 text-lg font-pregular ">
                 Latest Videos
               </Text>
               <Trending posts={latestPosts ?? []} />
