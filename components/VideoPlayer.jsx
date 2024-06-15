@@ -1,22 +1,32 @@
-import { Video, ResizeMode } from 'expo-av'
-import React from 'react'
+import { Video, ResizeMode } from "expo-av";
+import React, { useState } from "react";
+import { View, ActivityIndicator } from "react-native";
 
-const VideoPlayer = ({styles, uri, videoFinished}) => {
-  // console.log(uri)
+const VideoPlayer = ({ styles, uri, videoFinished }) => {
+  const [isBuffering, setIsBuffering] = useState(true);
   return (
-    <Video
+    <View className={`${styles} justify-center items-center`}>
+      <Video
         source={{ uri: uri }}
-        className= {styles}
+        className={styles}
         resizeMode={ResizeMode.CONTAIN}
         useNativeControls
         shouldPlay
         onPlaybackStatusUpdate={(status) => {
+          setIsBuffering(status.isBuffering);
           if (status.didJustFinish) {
-            videoFinished()
+            videoFinished();
           }
         }}
       />
-  )
-}
 
-export default VideoPlayer
+      <ActivityIndicator
+        className=" absolute"
+        size="large"
+        animating={isBuffering}
+      />
+    </View>
+  );
+};
+
+export default VideoPlayer;

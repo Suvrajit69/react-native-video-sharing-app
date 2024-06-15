@@ -3,6 +3,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  View,
 } from "react-native";
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
@@ -30,9 +31,9 @@ const TrendingItem = ({ activeItem, item }) => {
   const [play, setPlay] = useState(false);
   // console.log(item.video);
 
-  const videoFinished =()=>{
-    setPlay(false)
-  }
+  const videoFinished = () => {
+    setPlay(false);
+  };
 
   return (
     <Animatable.View
@@ -41,7 +42,13 @@ const TrendingItem = ({ activeItem, item }) => {
       duration={500}
     >
       {play ? (
-        <VideoPlayer styles="ml-4 w-52 h-72 rounded-[35px] my-5 bg-white/10" uri={item?.video} videoFinished={videoFinished}/>
+        <View className="ml-4 my-5">
+          <VideoPlayer
+            styles="w-52 h-72 rounded-[35px] bg-white/10 relative"
+            uri={item?.video}
+            videoFinished={videoFinished}
+          />
+        </View>
       ) : (
         <TouchableOpacity
           className="ml-4 relative justify-center items-center"

@@ -5,7 +5,6 @@ import {
   FlatList,
   Image,
   RefreshControl,
-  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { images } from "../../constants";
@@ -24,7 +23,7 @@ const Home = () => {
 
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
-  console.log("posts",posts)
+  // console.log("posts",posts)
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();

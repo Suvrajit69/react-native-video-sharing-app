@@ -13,7 +13,7 @@ const VideoCard = ({
   },
 }) => {
   const { user } = useGlobalContext();
-  console.log("users", video);
+  // console.log("users", video);
   const [play, setPlay] = useState(false);
 
   const videoFinished =()=>{
@@ -60,7 +60,7 @@ const VideoCard = ({
       </View>
       {play ? (
         <VideoPlayer
-          styles="w-full h-60  mt-3 relative justify-center items-center rounded-lg"
+          styles="w-full h-60  mt-3 relative rounded-lg"
           uri={video}
           videoFinished={videoFinished}
         />
