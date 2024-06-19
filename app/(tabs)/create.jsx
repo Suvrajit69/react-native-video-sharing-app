@@ -22,7 +22,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Create = () => {
   const { user } = useGlobalContext();
-  console.log("user: ",user)
+  
   if (!user?.$id) {
     router.push("/sign-in");
     setTimeout(() => {
@@ -63,7 +63,7 @@ const Create = () => {
       }
     } else {
       setTimeout(() => {
-        Alert.alert("Document picked", JSON.stringify(result, null, 2));
+        Alert.alert("No file selected", "Please select files to upload");
       }, 1000);
     }
   };
