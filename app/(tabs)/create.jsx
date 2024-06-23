@@ -23,12 +23,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 const Create = () => {
   const { user } = useGlobalContext();
   
-  if (!user?.$id) {
-    router.push("/sign-in");
-    setTimeout(() => {
-      Alert.alert("user not found. Please log in!");
-    }, 2000);
-  }
+  if(!user) return router.replace("/sign-in")
 
   
   const [uploading, setUploading] = useState(false);

@@ -7,10 +7,10 @@ import { Redirect, router } from "expo-router";
 import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function App() {
-  const {loading, isLoggedIn} = useGlobalContext()
-console.log(loading, isLoggedIn);
-  if(!loading && isLoggedIn) return <Redirect href="/home" />
-  
+  const { loading, isLoggedIn } = useGlobalContext();
+  console.log(loading, isLoggedIn);
+  if (!loading && isLoggedIn) return <Redirect href="/home" />;
+
   return (
     <SafeAreaView className="bg-primary h-full w-full">
       <ScrollView>
@@ -41,11 +41,19 @@ console.log(loading, isLoggedIn);
             Where creativity meets innovation: embark on a journey of limitless
             exploration with Aora{" "}
           </Text>
-          <CustomButton
-            title={"Continue with email"}
-            handlepress={() => router.push("/sign-in")}
-            containerStyles="w-full mt-7"
-          />
+          <View className="flex flex-row justify-between w-full mt-7 items-center">
+            <CustomButton
+              title={"Explore Now"}
+              handlepress={() => router.push("/home")}
+              containerStyles="bg-transparent border border-[6px] border-secondary p-[10px]"
+              textStyles="text-white"
+            />
+            <CustomButton
+              title={"Sign In"}
+              handlepress={() => router.push("/sign-in")}
+              containerStyles="p-4 px-9"
+            />
+          </View>
         </View>
       </ScrollView>
       <StatusBar backgroundColor="#161622" style="light" />

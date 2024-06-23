@@ -22,12 +22,12 @@ const FormField = ({
           placeholder={placeholder}
           placeholderTextColor="#7b7b8b"
           onChangeText={handleChangeText}
-          secureTextEntry={title === "password" && !showPassword}
+          secureTextEntry={title === "Password" && !showPassword}
         />
         {title === "Password" && (
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+          <TouchableOpacity onPress={() => setShowPassword((prev)=>!prev)}>
             <Image
-              source={!showPassword ? icons.eye : icons.eyeHide}
+              source={showPassword ? icons.eye : icons.eyeHide}
               resizeMode="contain"
               className="w-6 h-6"
             />

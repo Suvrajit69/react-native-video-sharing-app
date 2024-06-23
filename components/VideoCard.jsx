@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { icons } from "../constants";
 import { useGlobalContext } from "../context/GlobalProvider";
@@ -23,11 +23,12 @@ const VideoCard = ({
 
   // Initialize the liked state
   useEffect(() => {
-    const isLiked = like.some((likeObj) => likeObj.$id === user.$id);
+    const isLiked = like.some((likeObj) => likeObj.$id === user?.$id);
     setLiked(isLiked);
-  }, [like, user.$id]);
+  }, [like, user?.$id]);
 
   const onLike = async () => {
+    if (!user) return;
     try {
       const updatedVideo = await likeVideo(user.$id, videoId);
       const isLiked = updatedVideo.like.some(
@@ -105,7 +106,17 @@ const VideoCard = ({
         </TouchableOpacity>
       )}
       <View className="self-start py-5 flex-row gap-5 items-center">
-        <TouchableOpacity onPress={onLike} key={user.$id}>
+        <TouchableOpacity
+          onPress={
+            user
+              ? onLike
+              : () =>
+                  Alert.alert(
+                    "Please sign in!",
+                    "Please sign in first, to participate in our commuinity"
+                  )
+          }
+        >
           {liked ? (
             <AntDesign name="heart" size={30} color="red" />
           ) : (

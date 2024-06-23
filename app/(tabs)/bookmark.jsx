@@ -5,11 +5,14 @@ import { getAllLikedVideos } from "../../lib/appwrite";
 import VideoCard from "../../components/VideoCard";
 import SearchInput from "../../components/SearchInput";
 import EmptyState from "../../components/EmptyState";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { images } from "../../constants";
 
 const BookMark = () => {
   const { user } = useGlobalContext();
+
+  if(!user) return router.replace("/sign-in")
+
   const [likedPosts, setLikedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
