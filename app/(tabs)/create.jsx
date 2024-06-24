@@ -14,7 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { icons } from "../../constants";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { createVideo } from "../../lib/appwrite";
 import { useCameraPermissions, useMicrophonePermissions } from "expo-camera";
 import Camera from "../../components/Camera";
@@ -23,7 +23,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 const Create = () => {
   const { user } = useGlobalContext();
   
-  if(!user) return router.replace("/sign-in")
+  if(!user) return <Redirect href="/sign-in" />
 
   
   const [uploading, setUploading] = useState(false);

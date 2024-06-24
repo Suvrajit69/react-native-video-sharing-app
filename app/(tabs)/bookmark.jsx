@@ -1,17 +1,24 @@
-import { View, Text, SafeAreaView, FlatList, Image, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState, useCallback } from "react";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { getAllLikedVideos } from "../../lib/appwrite";
 import VideoCard from "../../components/VideoCard";
 import SearchInput from "../../components/SearchInput";
 import EmptyState from "../../components/EmptyState";
-import { router, useFocusEffect } from "expo-router";
+import { Redirect, useFocusEffect } from "expo-router";
 import { images } from "../../constants";
 
 const BookMark = () => {
   const { user } = useGlobalContext();
 
-  if(!user) return router.replace("/sign-in")
+  if (!user) return <Redirect href="/sign-in" />;
 
   const [likedPosts, setLikedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +46,7 @@ const BookMark = () => {
     <SafeAreaView className="bg-primary flex-1">
       {loading ? (
         <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size={50}/>
+          <ActivityIndicator size={50} />
         </View>
       ) : (
         <FlatList
