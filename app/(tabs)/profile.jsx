@@ -16,8 +16,7 @@ import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
 import { Redirect, router } from "expo-router";
 import { useState } from "react";
-import Modal from "../../components/Modal";
-import { Entypo } from "@expo/vector-icons";
+import DpChangeModal from "../../components/DpChangeModal";
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
@@ -34,6 +33,10 @@ const Profile = () => {
     router.replace("/sign-in");
   };
 
+const handleModal=()=>{
+  setModalOpen(false)
+}
+console.log(posts);
   return (
     <SafeAreaView className="bg-primary flex-1">
       <FlatList
@@ -62,23 +65,15 @@ const Profile = () => {
                 resizeMode="cover"
               />
             </TouchableOpacity>
-            <Modal isOpen={modalOpen} withKeyBoard={false} animation="fade">
-              <View className="w-[80%] h-[45%] bg-primary justify-center items-center rounded-md relative">
-                <View className="w-32 h-32 border border-secondary border-dashed rounded-lg justify-center items-center">
-                  <Image
-                    source={{ uri: user?.avatar }}
-                    className="w-[90%] h-[90%] rounded-lg"
-                    resizeMode="cover"
-                  />
-                </View>
-                <TouchableOpacity
-                  onPress={() => setModalOpen((prev) => !prev)}
-                  className="absolute top-3 right-3"
-                >
-                  <Entypo name="cross" size={30} color="white" />
-                </TouchableOpacity>
-              </View>
-            </Modal>
+
+            <DpChangeModal
+              dp={user?.avatar}
+              isOpen={modalOpen}
+              withKeyBoard={false}
+              animation="fade"
+              modalClose={handleModal}
+            />
+
             <InfoBox
               title={user?.userName}
               containerStyles="mt-5"
