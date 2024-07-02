@@ -15,7 +15,7 @@ const FormField = ({
   return (
     <View className={`space-y-2 ${otherStyles}`}>
       <Text className="text-base text-gray-100 font-medium">{title}</Text>
-      <View className="w-full h-16 px-4 bg-black-100 rounded-2xl focus:border-secondary items-center border-2 border-black-200 flex-row">
+      <View className="flex flex-row items-center space-x-4 w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary-100">
         <TextInput
           className="flex-1 text-white font-psemibold text-base"
           value={value}
@@ -25,7 +25,7 @@ const FormField = ({
           secureTextEntry={title === "Password" && !showPassword}
         />
         {title === "Password" && (
-          <TouchableOpacity onPress={() => setShowPassword((prev)=>!prev)}>
+          <TouchableOpacity onPress={() => setShowPassword((prev) => !prev)}>
             <Image
               source={showPassword ? icons.eye : icons.eyeHide}
               resizeMode="contain"
