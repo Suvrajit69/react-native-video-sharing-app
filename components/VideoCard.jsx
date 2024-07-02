@@ -5,6 +5,7 @@ import { useGlobalContext } from "../context/GlobalProvider";
 import VideoPlayer from "./VideoPlayer";
 import { AntDesign } from "@expo/vector-icons";
 import { likeVideo } from "../lib/appwrite";
+import { router } from "expo-router";
 
 const VideoCard = ({
   video: {
@@ -49,13 +50,20 @@ const VideoCard = ({
     <View className="flex-col items-center px-4 mb-2 bg-gray-900 rounded-xl pt-3 scale-95">
       <View className="flex-row items-start bg-gray-900">
         <View className="justify-center items-center flex-row flex-1 ">
-          <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center items-center p-0.5">
+          <TouchableOpacity
+            className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center items-center p-0.5"
+            onPress={() =>
+              router.push(
+                userId === user?.$id ? "/profile" : `profile/${userId}`
+              )
+            }
+          >
             <Image
               source={{ uri: avatar }}
               resizeMode="cover"
               className="w-full h-full rounded-lg"
             />
-          </View>
+          </TouchableOpacity>
           <View className="justify-center flex-1 ml-3 gap-y-1">
             <Text
               className="text-sm text-white font-psemibold"
