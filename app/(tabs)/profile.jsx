@@ -24,6 +24,7 @@ const Profile = () => {
 
   const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
   const [modalOpen, setModalOpen] = useState(false);
+  const [avatar, setAvatar] = useState(user?.avatar);
 
   const logOut = async () => {
     await signOut();
@@ -33,10 +34,13 @@ const Profile = () => {
     router.replace("/sign-in");
   };
 
-const handleModal=()=>{
-  setModalOpen(false)
-}
-console.log(posts);
+  const handleModal = (newDpUrl) => {
+    if (newDpUrl) {
+      setAvatar(newDpUrl);
+    }
+    setModalOpen(false);
+  };
+  console.log(posts);
   return (
     <SafeAreaView className="bg-primary flex-1">
       <FlatList
@@ -60,14 +64,14 @@ console.log(posts);
               onPress={() => setModalOpen((prev) => !prev)}
             >
               <Image
-                source={{ uri: user?.avatar }}
+                source={{ uri: avatar }}
                 className="w-[90%] h-[90%] rounded-lg"
                 resizeMode="cover"
               />
             </TouchableOpacity>
 
             <DpChangeModal
-              dp={user?.avatar}
+              dp={avatar}
               isOpen={modalOpen}
               withKeyBoard={false}
               animation="fade"

@@ -29,16 +29,16 @@ const DpChangeModal = ({ dp, isOpen, withKeyBoard, animation, modalClose }) => {
     }
   };
 
-  const confirmNewDp = async ()=>{
+  const confirmNewDp = async () => {
     try {
-      await changeNewDpImage(newDpImage, user.$id, dp);
+      const res = await changeNewDpImage(newDpImage, user.$id, dp);
       Alert.alert("Success", "Your dp changed successfuly");
-      modalClose()
+      modalClose(res.avatar);
     } catch (error) {
       Alert.alert("Error", error.message);
       console.log(error);
     }
-  }
+  };
 
   return (
     <Modal isOpen={isOpen} withKeyBoard={withKeyBoard} animation={animation}>
@@ -52,22 +52,27 @@ const DpChangeModal = ({ dp, isOpen, withKeyBoard, animation, modalClose }) => {
         </View>
         <TouchableOpacity className="flex-row items-center mt-8">
           {newDpImage ? (
-            <Text className="text-secondary-100" onPress={confirmNewDp}>
-              Confirm {" "}
-            </Text>
+            <>
+              <Text className="text-secondary-100" onPress={confirmNewDp}>
+                Confirm{" "}
+              </Text>
+              <MaterialCommunityIcons
+                name="thumb-up"
+                size={18}
+                color="#FF9C01"
+              />
+            </>
           ) : (
-            <Text className="text-secondary-100" onPress={openPicker}>
-              Choose a photo {" "}
-            </Text>
-          )}
-          {newDpImage ? (
-            <MaterialCommunityIcons name="thumb-up" size={18} color="#FF9C01" />
-          ) : (
-            <Image
-              source={icons.camera}
-              resizeMode="contain"
-              className="w-4 h-4"
-            />
+            <>
+              <Text className="text-secondary-100" onPress={openPicker}>
+                Choose a photo{" "}
+              </Text>
+              <Image
+                source={icons.camera}
+                resizeMode="contain"
+                className="w-4 h-4"
+              />
+            </>
           )}
         </TouchableOpacity>
         <TouchableOpacity
